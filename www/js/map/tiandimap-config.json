@@ -1,0 +1,25 @@
+{
+  "map": {
+    "wrapAround180": false,
+    "initialExtent": "-14083000 3139000 -10879000 5458000",
+    "fullExtent": "-20000000 -20000000 20000000 20000000",
+    "baseMaps": [
+      {
+        "label": "天地图",
+        "type": "TiandiMap",
+        "visible": false
+      },
+      {
+        "label": "天地图影像图",
+        "type": "TiandiSatelliteMap",
+        "visible": true
+      },
+      {
+        "label": "天地图标注",
+        "type": "TiandiLabelMap",
+        "visible": true
+      }
+    ]
+  },
+  "geometryService": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"
+}

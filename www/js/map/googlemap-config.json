@@ -1,0 +1,30 @@
+{
+  "map": {
+    "wrapAround180": false,
+    "initialExtent": "-14083000 3139000 -10879000 5458000",
+    "fullExtent": "-20000000 -20000000 20000000 20000000",
+    "baseMaps": [
+      {
+        "label": "谷歌地图",
+        "type": "GoogleMap",
+        "visible": false
+      },
+      {
+        "label": "谷歌地形图",
+        "type": "GoogleTerrainMap",
+        "visible": false
+      },
+      {
+        "label": "谷歌影像图",
+        "type": "GoogleSatelliteMap",
+        "visible": true
+      },
+      {
+        "label": "谷歌地图标注",
+        "type": "GoogleLabelMap",
+        "visible": false
+      }
+    ]
+  },
+  "geometryService": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"
+}

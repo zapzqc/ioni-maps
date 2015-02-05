@@ -1,0 +1,25 @@
+{
+  "map": {
+    "wrapAround180": true,
+    "initialExtent": "-14083000 3139000 -10879000 5458000",
+    "fullExtent": "-20000000 -20000000 20000000 20000000",
+    "baseMaps": [
+      {
+        "label": "百度地图",
+        "type": "BaiduMap",
+        "visible": true
+      },
+      {
+        "label": "百度影像图",
+        "type": "BaiduSatelliteMap",
+        "visible": false
+      },
+      {
+        "label": "百度地图标注",
+        "type": "BaiduLabelMap",
+        "visible": true
+      }
+    ]
+  },
+  "geometryService": "http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer"
+}
