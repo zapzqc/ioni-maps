@@ -1,5 +1,24 @@
 <ion-view view-title="谷歌">
+    <ion-header-bar>
+        <h1 class="title">谷歌</h1>
+        <button class="button button-icon icon ion-social-buffer-outline" ng-click="baseMapToggle($event)"></button>
+    </ion-header-bar>
     <ion-content scroll="false">
         <ths-map-view config="js/map/googlemap-config.json"></ths-map-view>
     </ion-content>
 </ion-view>
+<script id="google-popover.html" type="text/ng-template">
+    <ion-popover-view>
+        <ion-header-bar>
+            <h1 class="title">图层切换</h1>
+        </ion-header-bar>
+        <ion-content class="padding">
+            <button class="button button-block" ng-class="" style="margin-bottom: 10px" ng-click="showLayer(0)">谷歌地图
+            </button>
+
+            <button class="button button-block" ng-click="showLayer(1)" style="margin-bottom: 10px">谷歌影像图</button>
+
+            <button class="button button-block" ng-click="showLayer(2)" style="margin-bottom: 10px">谷歌地形图</button>
+        </ion-content>
+    </ion-popover-view>
+</script>

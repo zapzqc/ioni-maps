@@ -9,7 +9,7 @@ define("ths/layers/GoogleMapLayer", ["dojo/_base/declare", "dojo/string", "esri/
                 this.urlTemplate = "http://mt${subDomain}.google.cn/vt?lyrs=s@165&hl=zh-CN&gl=CN&src=app&x=${col}&y=${row}&z=${level}";
             }
             else if (type === "label") {
-                this.urlTemplate = "http://mt${subDomain}.google.cn/vt?lyrs=m@258000000&src=apiv3&hl=zh-CN&x=${col}&y=${row}&z=${level}&style=50,37%7Csmartmaps";
+                this.urlTemplate = "http://mt${subDomain}.googleapis.cn/vt?lyrs=m@258000000&src=apiv3&hl=zh-CN&x=${col}&y=${row}&z=${level}&style=50,37%7Csmartmaps";
             }
             else if (type === "terrain") {
                 this.urlTemplate = "http://mt${subDomain}.google.cn/vt?lyrs=t@132,r@258000000&src=apiv3&hl=zh-CN&x=${col}&y=${row}&z=${level}&style=37%7Csmartmaps";

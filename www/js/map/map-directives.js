@@ -10,7 +10,7 @@ angular.module('ThsMapDirectives', ['ionic'])
             template: '<div style="height: 100%;width: 100%;"/>',
             scope: true,
             controller: function ($scope, $element, $attrs) {
-                var map;
+                $scope.map = null;
 
                 /**-------------------------图层上创建相关按钮的方法---------------------------------------*/
                 /**DivTag是包含按钮的外标签,每个按钮都是DivButtonTagOne,ButtonTagTop,DivButtonTagMiddle,DivButtonTagButtom,
@@ -22,7 +22,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                  * @param left 距离左边的位置
                  * @returns {HTMLElement|*}
                  */
-                this.creatDivTag = function (top, left) {
+                $scope.creatDivTag = function (top, left) {
                     var divTag = $document[0].createElement('div');
                     divTag.style.zIndex = 30;
                     divTag.style.top = top;
@@ -36,7 +36,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                  * @param text 如果不带文字,该参数可不传
                  * @returns {HTMLElement|*}
                  */
-                this.creatDivButtonTagOne = function (text) {
+                $scope.creatDivButtonTagOne = function (text) {
                     var divButtonTagOne = $document[0].createElement('div');
                     divButtonTagOne.className = "esriSimpleSliderDecrementButton";
                     divButtonTagOne.style.borderTopRightRadius = "5px";
@@ -52,7 +52,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                  * @param text 如果不带文字,该参数可不传
                  * @returns {HTMLElement|*}
                  */
-                this.creatDivButtonTagTop = function (text) {
+                $scope.creatDivButtonTagTop = function (text) {
                     var divButtonTagTop = $document[0].createElement('div');
                     divButtonTagTop.className = "esriSimpleSliderIncrementButton";
                     if (text != null) {
@@ -66,7 +66,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                  * @param text 如果不带文字,该参数可不传
                  * @returns {HTMLElement|*}
                  */
-                this.creatDivButtonTagMiddle = function (text) {
+                $scope.creatDivButtonTagMiddle = function (text) {
                     var divButtonTagMiddle = $document[0].createElement('div');
                     divButtonTagMiddle.className = "esriSimpleSliderIncrementButton";
                     divButtonTagMiddle.style.borderRadius = "0px";
@@ -81,7 +81,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                  * @param text 如果不带文字,该参数可不传
                  * @returns {HTMLElement|*}
                  */
-                this.creatDivButtonTagButtom = function (text) {
+                $scope.creatDivButtonTagButtom = function (text) {
                     var divButtonTagButtom = $document[0].createElement('div');
                     divButtonTagButtom.className = "esriSimpleSliderDecrementButton";
                     if (text != null) {
@@ -95,7 +95,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                  * @param img 图片url
                  * @returns {HTMLElement|*}
                  */
-                this.creatButtonImgTag = function (img) {
+                $scope.creatButtonImgTag = function (img) {
                     var buttonTag = $document[0].createElement('img');
                     buttonTag.style.verticalAlign = "middle";
                     buttonTag.style.width = "80%";
@@ -109,59 +109,48 @@ angular.module('ThsMapDirectives', ['ionic'])
                  * 加载基础图层信息
                  * then返回map对象
                  */
-                $scope.addLayerToMap = function (type, visible) {
-                    var defer = $q.defer();
-                    require([
-                        "esri/layers/ArcGISDynamicMapServiceLayer"
-                    ], function (ArcGISDynamicMapServiceLayer) {
-
-                        ///**创建动态图层*/
-                        //var dynamicMapServiceLayer = new ArcGISDynamicMapServiceLayer("http://192.168.0.99/ArcGIS/rest/services", {
-                        //    "opacity": 0.5,
-                        //    "optimizePanAnimation": false
-                        //});
-                        ///**添加动态图层*/
-                        //map.addLayer(dynamicMapServiceLayer);
-                        var layer;
-                        if (type.toLocaleLowerCase().trim() === "baidumap") {
-                            layer = new ths.layers.BaiduMapLayer("streets");//创建百度地图
-                        }
-                        else if (type.toLocaleLowerCase().trim() === "baidusatellitemap") //创建百度卫星图层
-                        {
-                            layer = new ths.layers.BaiduMapLayer("satellite");
-                        }
-                        else if (type.toLocaleLowerCase().trim() === "baidulabelmap") {
-                            layer = new ths.layers.BaiduMapLayer("label");
-                        }
-                        else if (type.toLocaleLowerCase().trim() === "tiandimap") {
-                            layer = new ths.layers.TiandiMapLayer("streets");
-                        }
-                        else if (type.toLocaleLowerCase().trim() === "tiandisatellitemap") {
-                            layer = new ths.layers.TiandiMapLayer("satellite");
-                        }
-                        else if (type.toLocaleLowerCase().trim() === "tiandilabelmap") {
-                            layer = new ths.layers.TiandiMapLayer("label");
-                        }
-                        else if (type.toLocaleLowerCase().trim() === "googlemap") {
-                            layer = new ths.layers.GoogleMapLayer("streets");
-                        }
-                        else if (type.toLocaleLowerCase().trim() === "googlesatellitemap") {
-                            layer = new ths.layers.GoogleMapLayer("satellite");
-                        }
-                        else if (type.toLocaleLowerCase().trim() === "googlelabelmap") {
-                            layer = new ths.layers.GoogleMapLayer("label");
-                        }
-                        else if (type.toLocaleLowerCase().trim() === "googleterrainmap") {
-                            layer = new ths.layers.GoogleMapLayer("terrain");
-                        }
-                        if (layer === null) {
-                            defer.reject("图层加载错误，请检查相应参数");
-                        }
-                        layer.visible = visible;
-                        map.addLayer(layer);
-                        defer.resolve(map);
-                    });
-                    return defer.promise;
+                $scope.addLayerToMap = function (layerOptions) {
+                    var layer;
+                    if (layerOptions.type.toLocaleLowerCase().trim() === "baidumap") {
+                        layer = new ths.layers.BaiduMapLayer("streets");//创建百度地图
+                    }
+                    else if (layerOptions.type.toLocaleLowerCase().trim() === "baidusatellitemap") //创建百度卫星图层
+                    {
+                        layer = new ths.layers.BaiduMapLayer("satellite");
+                    }
+                    else if (layerOptions.type.toLocaleLowerCase().trim() === "baidulabelmap") {
+                        layer = new ths.layers.BaiduMapLayer("label");
+                    }
+                    else if (layerOptions.type.toLocaleLowerCase().trim() === "tiandimap") {
+                        layer = new ths.layers.TiandiMapLayer("streets");
+                    }
+                    else if (layerOptions.type.toLocaleLowerCase().trim() === "tiandisatellitemap") {
+                        layer = new ths.layers.TiandiMapLayer("satellite");
+                    }
+                    else if (layerOptions.type.toLocaleLowerCase().trim() === "tiandilabelmap") {
+                        layer = new ths.layers.TiandiMapLayer("label");
+                    }
+                    else if (layerOptions.type.toLocaleLowerCase().trim() === "googlemap") {
+                        layer = new ths.layers.GoogleMapLayer("streets");
+                    }
+                    else if (layerOptions.type.toLocaleLowerCase().trim() === "googlesatellitemap") {
+                        layer = new ths.layers.GoogleMapLayer("satellite");
+                    }
+                    else if (layerOptions.type.toLocaleLowerCase().trim() === "googlelabelmap") {
+                        layer = new ths.layers.GoogleMapLayer("label");
+                    }
+                    else if (layerOptions.type.toLocaleLowerCase().trim() === "googleterrainmap") {
+                        layer = new ths.layers.GoogleMapLayer("terrain");
+                    }
+                    if (layer === null) {
+                        alert("图层加载错误，请检查相应参数");
+                    }
+                    layer.id = layerOptions.label;
+                    layer.visible = layerOptions.visible;
+                    if ($scope.map == null) {
+                        alert("地图控件尚未加载!");
+                    }
+                    $scope.map.addLayer(layer);
                 };
 
                 /**
@@ -174,7 +163,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                  * @param attrTemplate 绑定模版数据(选填)
                  * @param infoTemplate 模版(选填)
                  */
-                this.location = function (graphicsLayer, x, y, locationIcon, attrTemplate, infoTemplate) {
+                $scope.location = function (graphicsLayer, x, y, locationIcon, attrTemplate, infoTemplate) {
                     require(["esri/geometry/Point", "esri/symbols/PictureMarkerSymbol", "esri/graphic"], function (Point, PictureMarkerSymbol, Graphic) {
                         //创建点位点
                         var point = new Point(x, y);
@@ -184,7 +173,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                         var graphic = new Graphic(point, pictureMarkerSymbol, attrTemplate, infoTemplate);
                         //添加定位Graphic
                         graphicsLayer.add(graphic);
-                        map.centerAt(point);
+                        $scope.map.centerAt(point);
                     });
                 };
 
@@ -194,10 +183,10 @@ angular.module('ThsMapDirectives', ['ionic'])
                  * @param x 中心点的经度值(必填)
                  * @param y 中心点的纬度值(必填)
                  */
-                this.setMapCenter = function (x, y) {
+                $scope.setMapCenter = function (x, y) {
                     require(["esri/geometry/Point"], function (Point) {
                         var centerPoint = new Point(x, y);
-                        map.centerAt(centerPoint);
+                        $scope.map.centerAt(centerPoint);
                     });
                 };
 
@@ -209,10 +198,10 @@ angular.module('ThsMapDirectives', ['ionic'])
                  * @param maxX(必填)
                  * @param maxY(必填)
                  */
-                this.setMapExtent = function (minX, minY, maxX, maxY) {
+                $scope.setMapExtent = function (minX, minY, maxX, maxY) {
                     require(["esri/geometry/Extent", "esri/SpatialReference"], function (Extent, SpatialReference) {
                         var extent = new Extent(minX, minY, maxX, maxY);
-                        map.setExtent(extent);
+                        $scope.map.setExtent(extent);
                     });
                 };
 
@@ -221,7 +210,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                  * @param layer 图层(必填)
                  * @param template 模版信息(必填)
                  */
-                this.setLayerTemplate = function (layer, template) {
+                $scope.setLayerTemplate = function (layer, template) {
                     require(["esri/InfoTemplate"], function (InfoTemplate) {
                         //创建模版
                         var infoTemplate = new InfoTemplate(template);
@@ -234,7 +223,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                  * 创建图形图层
                  * then返回graphicsLayer
                  */
-                this.creatGraphicsLayer = function () {
+                $scope.creatGraphicsLayer = function () {
                     var defer = $q.defer();
                     require(["esri/layers/GraphicsLayer"], function (GraphicsLayer) {
                         //创建图形图层
@@ -249,7 +238,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                  * @param template 模版信息(必填)
                  * then返回模版
                  */
-                this.creatInfoTemplate = function (template) {
+                $scope.creatInfoTemplate = function (template) {
                     var defer = $q.defer();
                     require(["esri/InfoTemplate"], function (InfoTemplate) {
                         //创建模版
@@ -269,7 +258,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                  * @param attrTemplate 绑定模版数据(选填)
                  * @param infoTemplate 模版(选填)
                  */
-                this.addMarker = function (x, y, icon, graphicsLayer, attrTemplate, infoTemplate) {
+                $scope.addMarker = function (x, y, icon, graphicsLayer, attrTemplate, infoTemplate) {
                     require(["esri/geometry/Point", "esri/symbols/PictureMarkerSymbol", "esri/graphic"], function (Point, PictureMarkerSymbol, Graphic) {
                         //创建点
                         var point = new Point(x, y);
@@ -292,7 +281,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                  * @param attrTemplate 绑定模版数据(选填)
                  * @param infoTemplate 模版(选填)
                  */
-                this.addAqiMarker = function (x, y, value, graphicsLayer, attrTemplate, infoTemplate) {
+                $scope.addAqiMarker = function (x, y, value, graphicsLayer, attrTemplate, infoTemplate) {
                     require(["esri/symbols/PictureMarkerSymbol", "esri/symbols/Font", "esri/symbols/TextSymbol", "esri/graphic", "esri/geometry/Point"], function (PictureMarkerSymbol, Font, TextSymbol, Graphic, Point) {
                         var pictureMarkerSymbol;
                         if (value >= 0 && value <= 50) {
@@ -330,33 +319,33 @@ angular.module('ThsMapDirectives', ['ionic'])
                     });
                 };
 
-                $scope.configMapAttributes = function (wrapAround180) {
-                    require([
-                        "esri/map"
-                    ], function (Map) {
-                        map = new Map($element[0], {
-                            wrapAround180: wrapAround180,
-                            logo: false
-                            //zoom: 8,
-                            //center: [104.070798, 30.664288]
-                        });
-                    })
+
+                $scope.configMapAttributes = function (mapOptions) {
+                    $scope.map = new esri.Map($element[0], {
+                        wrapAround180: mapOptions.wrapAround180,
+                        logo: false
+                    });
+                    $scope.$emit("getMap", $scope.map);
                 };
 
-                var config = $attrs.config;
-                if (config === undefined || config !== config || config === "") {
-                    config = "js/map/map-config.json";
-                }
-                //加载配置文件，并生成地图
-                $http.get(config).then(function (response) {
-                    $scope.configMapAttributes(response.data.map.wrapAround180);
-                    for (var baselayer in response.data.map.baseMaps) {
-                        $scope.addLayerToMap(response.data.map.baseMaps[baselayer].type, response.data.map.baseMaps[baselayer].visible);
+                require([
+                    "esri/map"
+                ], function () {
+                    //读取配置文件
+                    var config = $attrs.config;
+                    if (config === undefined || config !== config || config === "") {
+                        config = "js/map/map-config.json";
                     }
-                }, function (error) {
-                    alert("地图加载错误，请检查配置文件！");
+                    //加载配置文件，并生成地图
+                    $http.get(config).then(function (response) {
+                        $scope.configMapAttributes(response.data.map);
+                        for (var baseLayer in response.data.map.baseMaps) {
+                            $scope.addLayerToMap(response.data.map.baseMaps[baseLayer]);
+                        }
+                    }, function (error) {
+                        alert("地图加载错误，请检查配置文件！");
+                    });
                 });
-
             }
         };
     });

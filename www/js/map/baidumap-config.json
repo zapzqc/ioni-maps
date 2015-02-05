@@ -17,7 +17,7 @@
       {
         "label": "百度地图标注",
         "type": "BaiduLabelMap",
-        "visible": true
+        "visible": false
       }
     ]
   },

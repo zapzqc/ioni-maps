@@ -7,17 +7,17 @@
       {
         "label": "谷歌地图",
         "type": "GoogleMap",
+        "visible": true
+      },
+      {
+        "label": "谷歌影像图",
+        "type": "GoogleSatelliteMap",
         "visible": false
       },
       {
         "label": "谷歌地形图",
         "type": "GoogleTerrainMap",
         "visible": false
-      },
-      {
-        "label": "谷歌影像图",
-        "type": "GoogleSatelliteMap",
-        "visible": true
       },
       {
         "label": "谷歌地图标注",

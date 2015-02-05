@@ -5,13 +5,13 @@
     "fullExtent": "-20000000 -20000000 20000000 20000000",
     "baseMaps": [
       {
-        "label": "谷歌地形图",
-        "type": "GoogleTerrainMap",
+        "label": "谷歌地图",
+        "type": "GoogleMap",
         "visible": true
       },
       {
         "label": "百度地图",
-        "type": "GoogleTerrainMap",
+        "type": "BaiduMap",
         "visible": false
       }
     ]
