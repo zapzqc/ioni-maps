@@ -1,6 +1,6 @@
 {
   "map": {
-    "wrapAround180": false,
+    "wrapAround180": true,
     "initialExtent": "-14083000 3139000 -10879000 5458000",
     "fullExtent": "-20000000 -20000000 20000000 20000000",
     "baseMaps": [

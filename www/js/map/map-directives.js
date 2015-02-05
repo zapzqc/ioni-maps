@@ -323,7 +323,8 @@ angular.module('ThsMapDirectives', ['ionic'])
                 $scope.configMapAttributes = function (mapOptions) {
                     $scope.map = new esri.Map($element[0], {
                         wrapAround180: mapOptions.wrapAround180,
-                        logo: false
+                        logo: false,
+                        fadeOnZoom: false
                     });
                     $scope.$emit("getMap", $scope.map);
                 };

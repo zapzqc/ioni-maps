@@ -3,13 +3,13 @@ define("ths/layers/GoogleMapLayer", ["dojo/_base/declare", "dojo/string", "esri/
         constructor: function (type) {
             this.subDomains = [0, 1];
             if (!type || type === "streets") {
-                this.urlTemplate = "http://mt${subDomain}.google.cn/vt?lyrs=m@266000000&src=apiv3&hl=zh-CN&x=${col}&y=${row}&z=${level}&style=47,37%7Csmartmaps";
+                this.urlTemplate = "http://mt${subDomain}.google.cn/vt/lyrs=m@177000000&hl=zh-CN&gl=cn&src=app&x=${col}&y=${row}&z=${level}&style=47,37%7Csmartmaps";
             }
             else if (type === "satellite") {
                 this.urlTemplate = "http://mt${subDomain}.google.cn/vt?lyrs=s@165&hl=zh-CN&gl=CN&src=app&x=${col}&y=${row}&z=${level}";
             }
             else if (type === "label") {
-                this.urlTemplate = "http://mt${subDomain}.googleapis.cn/vt?lyrs=m@258000000&src=apiv3&hl=zh-CN&x=${col}&y=${row}&z=${level}&style=50,37%7Csmartmaps";
+                this.urlTemplate = "http://mt${subDomain}.googleapis.cn/vt/imgtp=png32&lyrs=h@177000000&hl=zh-CN&gl=cn&src=app&x=${col}&y=${row}&z=${level}&style=50,37%7Csmartmaps";
             }
             else if (type === "terrain") {
                 this.urlTemplate = "http://mt${subDomain}.google.cn/vt?lyrs=t@132,r@258000000&src=apiv3&hl=zh-CN&x=${col}&y=${row}&z=${level}&style=37%7Csmartmaps";
@@ -55,5 +55,5 @@ define("ths/layers/GoogleMapLayer", ["dojo/_base/declare", "dojo/string", "esri/
                 col: col, row: row, level: level
             });
         }
-    });//谷歌矢量地图切片地图
+    });
 });

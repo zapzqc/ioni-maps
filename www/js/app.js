@@ -38,6 +38,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
             .state('tab.baidu', {
                 url: '/baidu',
+                catch: false,
                 views: {
                     'tab-baidu': {
                         templateUrl: 'templates/tab-baidu.html',
@@ -48,6 +49,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
             .state('tab.google', {
                 url: '/google',
+                catch: false,
                 views: {
                     'tab-google': {
                         templateUrl: 'templates/tab-google.html',
@@ -58,6 +60,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
             .state('tab.tianditu', {
                 url: '/tianditu',
+                catch: false,
                 views: {
                     'tab-tianditu': {
                         templateUrl: 'templates/tab-tianditu.html',
@@ -68,6 +71,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
 
             .state('tab.hybrid', {
                 url: '/hybrid',
+                catch: false,
                 views: {
                     'tab-hybrid': {
                         templateUrl: 'templates/tab-hybrid.html',
