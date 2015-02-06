@@ -12,10 +12,6 @@ angular.module('ThsMapDirectives', ['ionic'])
             controller: function ($scope, $element, $attrs) {
                 $scope.map = null;
 
-                /**-------------------------图层上创建相关按钮的方法---------------------------------------*/
-                /**DivTag是包含按钮的外标签,每个按钮都是DivButtonTagOne,ButtonTagTop,DivButtonTagMiddle,DivButtonTagButtom,
-                 * 按钮内的图片ButtonImgTag,文字则ButtonTextTag*/
-
                 /**
                  * 创建按钮的外部包裹标签(包裹按钮必须的标签)
                  * @param top 距离顶端的位置
@@ -326,6 +322,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                         logo: false,
                         fadeOnZoom: false
                     });
+                    $scope.setMapExtent(mapOptions.initialExtent.xmin, mapOptions.initialExtent.ymin, mapOptions.initialExtent.xmax, mapOptions.initialExtent.ymax);
                     $scope.$emit("getMap", $scope.map);
                 };
 
@@ -347,6 +344,9 @@ angular.module('ThsMapDirectives', ['ionic'])
                         alert("地图加载错误，请检查配置文件！");
                     });
                 });
+            },
+            link: function (scope, elements, attrs, controller) {
+
             }
         };
     });

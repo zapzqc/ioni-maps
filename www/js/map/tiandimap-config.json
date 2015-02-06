@@ -1,8 +1,12 @@
 {
   "map": {
     "wrapAround180": false,
-    "initialExtent": "-14083000 3139000 -10879000 5458000",
-    "fullExtent": "-20000000 -20000000 20000000 20000000",
+    "initialExtent": {
+      "xmin": 70,
+      "ymin": 11,
+      "xmax": 137,
+      "ymax": 55
+    },
     "baseMaps": [
       {
         "label": "天地图",

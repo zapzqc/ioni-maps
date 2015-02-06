@@ -1,8 +1,12 @@
 {
   "map": {
     "wrapAround180": false,
-    "initialExtent": "-14083000 3139000 -10879000 5458000",
-    "fullExtent": "-20000000 -20000000 20000000 20000000",
+    "initialExtent": {
+      "xmin": 90,
+      "ymin": 20,
+      "xmax": 157,
+      "ymax": 62
+    },
     "baseMaps": [
       {
         "label": "谷歌地图",
