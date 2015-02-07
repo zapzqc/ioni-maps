@@ -112,7 +112,8 @@ angular.module('ThsMapDirectives', ['ionic'])
                         logo: false,
                         fadeOnZoom: false,
                         displayGraphicsOnPan: !dojo.isIE,
-                        showLabels: true
+                        sliderPosition: (mapOptions.sliderposition === undefined || mapOptions.sliderposition.trim() === "") ? "top-left" : mapOptions.sliderposition,
+                        sliderOrientation: (mapOptions.sliderorientation === undefined || mapOptions.sliderposition.trim() === "") ? "vertical" : mapOptions.sliderorientation
                     });
                     $scope.map.setExtent(new esri.geometry.Extent(mapOptions.initialExtent.xmin, mapOptions.initialExtent.ymin, mapOptions.initialExtent.xmax, mapOptions.initialExtent.ymax));
                     $scope.$emit("mapLoaded", $scope.map);//地图控件初始化完毕

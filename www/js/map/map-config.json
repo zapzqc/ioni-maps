@@ -1,5 +1,7 @@
 {
   "map": {
+    "sliderposition": "bottom-left",
+    "sliderorientation": "horizontal",
     "wrapAround180": false,
     "initialExtent": {
       "xmin": -126.060026464775,
