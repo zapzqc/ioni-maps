@@ -2,7 +2,7 @@ angular.module('starter.controllers', [])
 
     .controller('BaiduCtrl', function ($scope, $ionicPopover) {
         //获取地图控件
-        $scope.$on("getMap", function (event, data) {
+        $scope.$on("mapLoaded", function (event, data) {
             $scope.map = data;
         });
 
@@ -31,7 +31,7 @@ angular.module('starter.controllers', [])
 
     .controller('GoogleCtrl', function ($scope, $ionicPopover) {
 //获取地图控件
-        $scope.$on("getMap", function (event, data) {
+        $scope.$on("mapLoaded", function (event, data) {
             $scope.map = data;
         });
 
@@ -68,7 +68,7 @@ angular.module('starter.controllers', [])
 
     .controller('TiandituCtrl', function ($scope, $ionicPopover) {
 //获取地图控件
-        $scope.$on("getMap", function (event, data) {
+        $scope.$on("mapLoaded", function (event, data) {
             $scope.map = data;
         });
 
@@ -97,7 +97,7 @@ angular.module('starter.controllers', [])
 
     .controller('HybridCtrl', function ($scope, $ionicPopover) {
 //获取地图控件
-        $scope.$on("getMap", function (event, data) {
+        $scope.$on("mapLoaded", function (event, data) {
             $scope.map = data;
         });
 

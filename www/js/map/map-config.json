@@ -2,21 +2,32 @@
   "map": {
     "wrapAround180": false,
     "initialExtent": {
-      "xmin": 90,
-      "ymin": 20,
-      "xmax": 157,
-      "ymax": 62
+      "xmin": -126.060026464775,
+      "ymin": 27.285241223675,
+      "xmax": -108.305411069225,
+      "ymax": 44.2934163323251
     },
     "baseMaps": [
       {
-        "label": "谷歌地图",
-        "type": "GoogleMap",
-        "visible": true
-      },
+        "label": "美国地图",
+        "type": "Dynamic",
+        "visible": true,
+        "opacity": 1.0,
+        "url": "http://sampleserver5.arcgisonline.com/arcgis/rest/services/USA/MapServer",
+        "visiblelayers": [0]
+      }
+    ],
+    "livingmaps": [
       {
-        "label": "百度地图",
-        "type": "BaiduMap",
-        "visible": false
+        "label": "测试",
+        "type": "Feature",
+        "opacity": 1,
+        "visible": false,
+        "url": "http://sampleserver5.arcgisonline.com/arcgis/rest/services/USA/MapServer/3",
+        "extension": {
+          "outfields": ["state_name"],
+          "wherestring": "1 = 1"
+        }
       }
     ]
   },
