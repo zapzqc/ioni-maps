@@ -1,0 +1,19 @@
+/* Empty. Add your own CSS if you like */
+.mapOrientationVertical {
+    position: absolute;
+    zIndex: 50;
+}
+
+.mapOrientationVertical .mapButton {
+    margin-top: 5px;
+}
+
+.mapOrientationHorizontal {
+    position: absolute;
+    zIndex: 50;
+}
+
+.mapOrientationHorizontal .mapButton {
+    float: left;
+    margin-left: 5px;
+}

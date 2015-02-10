@@ -1,6 +1,8 @@
 {
   "map": {
     "wrapAround180": false,
+    "sliderposition": "top-right",
+    "sliderorientation": "vertical",
     "initialExtent": {
       "xmin": 70,
       "ymin": 11,
@@ -11,12 +13,14 @@
       {
         "label": "谷歌地图",
         "type": "GoogleMap",
-        "visible": true
+        "visible": true,
+        "groupId": [0]
       },
       {
         "label": "谷歌影像图",
         "type": "GoogleSatelliteMap",
-        "visible": false
+        "visible": false,
+        "groupId": [1]
       },
       {
         "label": "谷歌地形图",

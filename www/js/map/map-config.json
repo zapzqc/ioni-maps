@@ -4,19 +4,29 @@
     "sliderorientation": "horizontal",
     "wrapAround180": false,
     "initialExtent": {
-      "xmin": -126.060026464775,
-      "ymin": 27.285241223675,
-      "xmax": -108.305411069225,
-      "ymax": 44.2934163323251
+      "xmin": -158.176464137,
+      "ymin": 19.702481852000005,
+      "xmax": -68.78301209099999,
+      "ymax": 64.84830189399997
     },
     "baseMaps": [
+      {
+        "label": "天地图",
+        "type": "TiandiMap",
+        "visible": true
+      },
       {
         "label": "美国地图",
         "type": "Dynamic",
         "visible": true,
-        "opacity": 1.0,
+        "opacity": 0.5,
         "url": "http://sampleserver5.arcgisonline.com/arcgis/rest/services/USA/MapServer",
-        "visiblelayers": [0]
+        "visiblelayers": [
+          0,
+          1,
+          2,
+          3
+        ]
       }
     ],
     "livingmaps": [

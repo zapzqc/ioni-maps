@@ -11,96 +11,104 @@ angular.module('ThsMapDirectives', ['ionic'])
             scope: true,
             controller: function ($scope, $element, $attrs) {
                 $scope.map = null;
+                $scope.buttonTag = null;
+                $scope.mapOptions = null;
 
                 /**
-                 * 创建按钮的外部包裹标签(包裹按钮必须的标签)
-                 * @param top 距离顶端的位置
-                 * @param left 距离左边的位置
-                 * @returns {HTMLElement|*}
+                 * 地图增加功能按钮
+                 * @param img 按钮图片url
+                 * @param clickFunction 点击事件的function方法
+                 * @returns {*} 元素按妞
                  */
-                $scope.creatDivTag = function (top, left) {
-                    var divTag = $document[0].createElement('div');
-                    divTag.style.zIndex = 30;
-                    divTag.style.top = top;
-                    divTag.style.left = left;
-                    divTag.className = "esriSimpleSlider esriSimpleSliderVertical";
-                    return divTag;
+                $scope.addButtonForImg = function (img, clickFunction) {
+                    var divButton = $document[0].createElement('div');
+                    divButton.style.backgroundImage = "url(" + img + ")";
+                    divButton.className = "mapButton home";
+                    $scope.addEventListener(divButton, "click", clickFunction);
+                    var index = $scope.buttonTag.childElementCount;
+                    $scope.buttonTag.insertBefore(divButton, $scope.buttonTag.childNodes[index]);
+                    return divButton;
                 };
 
                 /**
-                 * 创建单个按钮的标签
-                 * @param text 如果不带文字,该参数可不传
-                 * @returns {HTMLElement|*}
+                 * 元素增加事件
+                 * @param element 元素
+                 * @param event 事件
+                 * @param eventFunction 事件方法
                  */
-                $scope.creatDivButtonTagOne = function (text) {
-                    var divButtonTagOne = $document[0].createElement('div');
-                    divButtonTagOne.className = "esriSimpleSliderDecrementButton";
-                    divButtonTagOne.style.borderTopRightRadius = "5px";
-                    divButtonTagOne.style.borderTopLeftRadius = "5px";
-                    if (text != null) {
-                        divButtonTagOne.innerText = text;
+                $scope.addEventListener = function (element, event, eventFunction) {
+                    if (window.addEventListener) {
+                        element.addEventListener(event, eventFunction, false);
                     }
-                    return divButtonTagOne;
-                };
-
-                /**
-                 * 创建顶部按钮标签
-                 * @param text 如果不带文字,该参数可不传
-                 * @returns {HTMLElement|*}
-                 */
-                $scope.creatDivButtonTagTop = function (text) {
-                    var divButtonTagTop = $document[0].createElement('div');
-                    divButtonTagTop.className = "esriSimpleSliderIncrementButton";
-                    if (text != null) {
-                        divButtonTagTop.innerText = text;
+                    else {
+                        element.attachEvent("on" + event, eventFunction);
                     }
-                    return divButtonTagTop;
-                };
-
-                /**
-                 * 创建中间按钮标签
-                 * @param text 如果不带文字,该参数可不传
-                 * @returns {HTMLElement|*}
-                 */
-                $scope.creatDivButtonTagMiddle = function (text) {
-                    var divButtonTagMiddle = $document[0].createElement('div');
-                    divButtonTagMiddle.className = "esriSimpleSliderIncrementButton";
-                    divButtonTagMiddle.style.borderRadius = "0px";
-                    if (text != null) {
-                        divButtonTagMiddle.innerText = text;
-                    }
-                    return divButtonTagMiddle;
-                };
-
-                /**
-                 * 创建底部按钮标签
-                 * @param text 如果不带文字,该参数可不传
-                 * @returns {HTMLElement|*}
-                 */
-                $scope.creatDivButtonTagButtom = function (text) {
-                    var divButtonTagButtom = $document[0].createElement('div');
-                    divButtonTagButtom.className = "esriSimpleSliderDecrementButton";
-                    if (text != null) {
-                        divButtonTagButtom.innerText = text;
-                    }
-                    return divButtonTagButtom;
-                };
-
-                /**
-                 * 创建按钮内部图片
-                 * @param img 图片url
-                 * @returns {HTMLElement|*}
-                 */
-                $scope.creatButtonImgTag = function (img) {
-                    var buttonTag = $document[0].createElement('img');
-                    buttonTag.style.verticalAlign = "middle";
-                    buttonTag.style.width = "80%";
-                    buttonTag.style.height = "80%";
-                    buttonTag.src = img;
-                    return buttonTag;
                 };
 
                 /**-------------------------地图图层操作相关的方法---------------------------------------*/
+
+                /**
+                 *  初始化基础按钮
+                 * @param postion 按钮位置, top-left, top-right, bottom-left, bottom-right
+                 * @param orientation 排列方向,vertical和horizontal
+                 */
+                $scope.initBaseButtonTag = function (postion, orientation) {
+                    var left = "20px";
+                    var top = "20px";
+                    var right = "20px";
+                    var buttomLeft = "40px";
+                    var buttomRight = "45px";
+                    var buttonTag = $document[0].createElement('div');
+                    if (postion === "top-left") {
+                        if (orientation === "vertical") {
+                            buttonTag.style.top = "100px";
+                            buttonTag.style.left = left;
+                            buttonTag.className = "mapOrientationVertical HomeButton";
+                        } else {
+                            buttonTag.style.top = top;
+                            buttonTag.style.left = "100px";
+                            buttonTag.className = "mapOrientationHorizontal HomeButton";
+                        }
+                    } else if (postion === "top-right") {
+                        if (orientation === "vertical") {
+                            buttonTag.style.top = "100px";
+                            buttonTag.style.right = right;
+                            buttonTag.className = "mapOrientationVertical HomeButton";
+                        } else {
+                            buttonTag.style.top = top;
+                            buttonTag.style.right = "100px";
+                            buttonTag.className = "mapOrientationHorizontal HomeButton";
+                        }
+                    } else if (postion === "bottom-left") {
+                        if (orientation === "vertical") {
+                            buttonTag.style.bottom = "120px";
+                            buttonTag.style.left = left;
+                            buttonTag.className = "mapOrientationVertical HomeButton";
+                        } else {
+                            buttonTag.style.bottom = buttomLeft;
+                            buttonTag.style.left = "100px";
+                            buttonTag.className = "mapOrientationHorizontal HomeButton";
+                        }
+                    } else if (postion === "bottom-right") {
+                        if (orientation === "vertical") {
+                            buttonTag.style.bottom = "125px";
+                            buttonTag.style.right = right;
+                            buttonTag.className = "mapOrientationVertical HomeButton";
+                        } else {
+                            buttonTag.style.bottom = buttomRight;
+                            buttonTag.style.right = "100px";
+                            buttonTag.className = "mapOrientationHorizontal HomeButton";
+                        }
+                    }
+                    $scope.buttonTag = buttonTag;
+                    if ($scope.mapOptions.initialExtent != undefined && $scope.mapOptions.initialExtent != null) {
+                        $scope.addButtonForImg("img/map_home.png", function () {
+                            $scope.map.setExtent(new esri.geometry.Extent($scope.mapOptions.initialExtent.xmin, $scope.mapOptions.initialExtent.ymin, $scope.mapOptions.initialExtent.xmax, $scope.mapOptions.initialExtent.ymax));
+                        });
+                    }
+                    $scope.addButtonForImg("img/map_location.png", null);
+                    $element[0].appendChild(buttonTag);
+                };
 
                 /**
                  * 初始化地图控件
@@ -115,7 +123,9 @@ angular.module('ThsMapDirectives', ['ionic'])
                         sliderPosition: (mapOptions.sliderposition === undefined || mapOptions.sliderposition.trim() === "") ? "top-left" : mapOptions.sliderposition,
                         sliderOrientation: (mapOptions.sliderorientation === undefined || mapOptions.sliderposition.trim() === "") ? "vertical" : mapOptions.sliderorientation
                     });
-                    $scope.map.setExtent(new esri.geometry.Extent(mapOptions.initialExtent.xmin, mapOptions.initialExtent.ymin, mapOptions.initialExtent.xmax, mapOptions.initialExtent.ymax));
+                    if ($scope.mapOptions.initialExtent != undefined && $scope.mapOptions.initialExtent != null) {
+                        $scope.map.setExtent(new esri.geometry.Extent(mapOptions.initialExtent.xmin, mapOptions.initialExtent.ymin, mapOptions.initialExtent.xmax, mapOptions.initialExtent.ymax));
+                    }
                     $scope.$emit("mapLoaded", $scope.map);//地图控件初始化完毕
                 };
 
@@ -194,8 +204,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                     }
                     $scope.map.addLayer(layer);
                     return layer;
-                }
-                ;
+                };
 
                 require([
                     "esri/map"
@@ -207,14 +216,62 @@ angular.module('ThsMapDirectives', ['ionic'])
                     }
                     //加载配置文件，并生成地图
                     $http.get(config).then(function (response) {
+                        var groupLayers = [];
+                        var satelliteLayers = [];
+                        var streetsLayers = [];
+                        var groupIndex = 0;
+
+                        $scope.mapOptions = response.data.map;
                         $scope.initialMap(response.data.map);
                         for (var baseLayer in response.data.map.baseMaps) {
-                            $scope.addLayer(response.data.map.baseMaps[baseLayer]);
+                            var layer = $scope.addLayer(response.data.map.baseMaps[baseLayer]);
+                            var groupId = response.data.map.baseMaps[baseLayer].groupId;
+                            if (groupId != undefined && groupId != null) {
+                                for (var index in groupId) {
+                                    var id = groupId[index];
+                                    if (id === 0) {
+                                        streetsLayers.push(layer);
+                                    } else if (id === 1) {
+                                        satelliteLayers.push(layer);
+                                    }
+                                }
+                            }
                         }
                         for (var livingmap in response.data.map.livingmaps) {
                             $scope.addLayer(response.data.map.livingmaps[livingmap]);
                         }
-                        $scope.creatDivButtonTagOne("测试");
+                        var postion = (response.data.map.sliderposition === undefined || response.data.map.sliderposition.trim() === "") ? "top-left" : response.data.map.sliderposition;
+                        var orientation = (response.data.map.sliderorientation === undefined || response.data.map.sliderposition.trim() === "") ? "vertical" : response.data.map.sliderorientation;
+                        $scope.initBaseButtonTag(postion, orientation);
+                        if (streetsLayers.length > 0) {
+                            groupLayers.push(streetsLayers);
+                        }
+                        if (satelliteLayers.length > 0) {
+                            groupLayers.push(satelliteLayers);
+                        }
+                        if (groupLayers.length > 0) {
+                            $scope.addButtonForImg("img/map_layer.png", function () {
+                                var groupLayer0 = groupLayers[0];
+                                var groupLayer1 = groupLayers[1];
+                                if (groupIndex === 0) {
+                                    for (var index in groupLayer1) {
+                                        groupLayer1[index].hide();
+                                    }
+                                    for (var index in groupLayer0) {
+                                        groupLayer0[index].show();
+                                    }
+                                    groupIndex = 1;
+                                } else {
+                                    for (var index in groupLayer0) {
+                                        groupLayer0[index].hide();
+                                    }
+                                    for (var index in groupLayer1) {
+                                        groupLayer1[index].show();
+                                    }
+                                    groupIndex = 0;
+                                }
+                            });
+                        }
                     }, function (error) {
                         alert("地图加载错误，请检查配置文件！");
                     });
