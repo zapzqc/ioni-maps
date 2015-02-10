@@ -101,7 +101,8 @@ angular.module('ThsMapDirectives', ['ionic'])
                         }
                     }
                     $scope.buttonTag = buttonTag;
-                    if ($scope.mapOptions.initialExtent != undefined && $scope.mapOptions.initialExtent != null) {
+                    var showHome = $scope.mapOptions.showHome != undefined ? $scope.mapOptions.showHome : true;
+                    if ($scope.mapOptions.initialExtent != undefined && $scope.mapOptions.initialExtent != null && showHome) {
                         $scope.addButtonForImg("img/map_home.png", function () {
                             $scope.map.setExtent(new esri.geometry.Extent($scope.mapOptions.initialExtent.xmin, $scope.mapOptions.initialExtent.ymin, $scope.mapOptions.initialExtent.xmax, $scope.mapOptions.initialExtent.ymax));
                         });
@@ -219,7 +220,7 @@ angular.module('ThsMapDirectives', ['ionic'])
                         var groupLayers = [];
                         var satelliteLayers = [];
                         var streetsLayers = [];
-                        var groupIndex = 0;
+                        var groupIndex;
 
                         $scope.mapOptions = response.data.map;
                         $scope.initialMap(response.data.map);
@@ -236,6 +237,23 @@ angular.module('ThsMapDirectives', ['ionic'])
                                     }
                                 }
                             }
+                            if (baseLayer === "0" && groupId != undefined) {
+                                var visible = response.data.map.baseMaps[baseLayer].visible;
+                                if (visible === undefined || visible === true) {
+                                    if (groupId[0] === 0) {
+                                        groupIndex = 0;
+                                    } else {
+                                        groupIndex = 1;
+                                    }
+                                } else {
+                                    if (groupId[0] === 1) {
+                                        groupIndex = 0;
+                                    } else {
+                                        groupIndex = 1;
+                                    }
+                                }
+                            }
+
                         }
                         for (var livingmap in response.data.map.livingmaps) {
                             $scope.addLayer(response.data.map.livingmaps[livingmap]);
@@ -249,24 +267,25 @@ angular.module('ThsMapDirectives', ['ionic'])
                         if (satelliteLayers.length > 0) {
                             groupLayers.push(satelliteLayers);
                         }
-                        if (groupLayers.length > 0) {
+                        var showSwitchLayer = response.data.map.showSwitchLayer != undefined ? response.data.map.showSwitchLayer : true;
+                        if (groupLayers.length > 0 && showSwitchLayer) {
                             $scope.addButtonForImg("img/map_layer.png", function () {
                                 var groupLayer0 = groupLayers[0];
                                 var groupLayer1 = groupLayers[1];
                                 if (groupIndex === 0) {
-                                    for (var index in groupLayer1) {
-                                        groupLayer1[index].hide();
-                                    }
-                                    for (var index in groupLayer0) {
-                                        groupLayer0[index].show();
-                                    }
-                                    groupIndex = 1;
-                                } else {
                                     for (var index in groupLayer0) {
                                         groupLayer0[index].hide();
                                     }
                                     for (var index in groupLayer1) {
                                         groupLayer1[index].show();
+                                    }
+                                    groupIndex = 1;
+                                } else {
+                                    for (var index in groupLayer1) {
+                                        groupLayer1[index].hide();
+                                    }
+                                    for (var index in groupLayer0) {
+                                        groupLayer0[index].show();
                                     }
                                     groupIndex = 0;
                                 }

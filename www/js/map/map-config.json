@@ -27,6 +27,11 @@
           2,
           3
         ]
+      },
+      {
+        "label": "天地图标注",
+        "type": "TiandiLabelMap",
+        "visible": true
       }
     ],
     "livingmaps": [
